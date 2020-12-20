@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class MovieItem extends Component {
     
     goToDetails = () => {
         console.log('clicked on poster for', this.props.movie.title);
-        this.props.history.push('/details', this.props.movie); 
+        this.props.dispatch({
+            type: 'FETCH_MOVIE_DETAILS',
+            payload: this.props.movie.id
+        });
+        this.props.history.push('/details'); 
     }
 
     render() { 
@@ -21,4 +26,4 @@ class MovieItem extends Component {
     }
 }
  
-export default withRouter(MovieItem);
+export default connect()(withRouter(MovieItem));

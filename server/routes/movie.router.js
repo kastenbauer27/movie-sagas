@@ -39,6 +39,7 @@ router.post('/', (req, res) => {
   })
 })
 
+// gets all movies from database
 router.get('/', (req, res) => {
   const queryText = `SELECT * FROM movies ORDER BY id;`;
   pool.query(queryText)
@@ -47,6 +48,19 @@ router.get('/', (req, res) => {
   })
   .catch(err => {
     console.log('error from server getting movies', err);
+  })
+})
+
+// gets one specific movie from database for details page
+router.get('/:id', (req, res) => {
+  movieId = req.params.id;
+  const queryText = `SELECT * FROM movies WHERE id=$1;`;
+  pool.query(queryText, [movieId])
+  .then(result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('error from server getting movie details', err);
   })
 })
 
