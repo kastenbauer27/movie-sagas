@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class MovieItem extends Component {
     
     goToDetails = () => {
-        
+        console.log('clicked on poster for', this.props.movie.title);
+        this.props.history.push('/details', this.props.movie); 
     }
 
     render() { 
@@ -19,4 +21,4 @@ class MovieItem extends Component {
     }
 }
  
-export default MovieItem;
+export default withRouter(MovieItem);
