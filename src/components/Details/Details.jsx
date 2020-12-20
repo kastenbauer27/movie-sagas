@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class Details extends Component {
-    state = {  }
+    
+    backToHome = () => {
+        this.props.history.push('/');
+    }
+
     render() { 
         return (
             <div className="movieDetails">
@@ -13,6 +18,7 @@ class Details extends Component {
                                 <h2>{movie.title}</h2>
                                 <img src={movie.poster} alt={movie.title} />
                                 <p>{movie.description}</p>
+                                <button onClick={this.backToHome}>Back To Movie List</button>
                             </div>
                         )
                     }
@@ -28,4 +34,4 @@ const mapStateToProps = (reduxState) => ({
     reduxState
 })
  
-export default connect(mapStateToProps)(Details);
+export default connect(mapStateToProps)(withRouter(Details));
