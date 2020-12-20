@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 
 class AddMovie extends Component {
-    state = {  }
+    state = { 
+        movie: {
+            title: '',
+            poster: '',
+            description: '',
+            genre_id: 0,
+        }
+     }
+
+    backToHome = () => {
+        this.props.history.push('/');
+    }
+
+    saveMovie = (event) => {
+        event.preventDefault();
+        console.log('saving movie to collection');
+        this.setState({
+            
+        })
+    }
+
     render() { 
         return ( 
             <div className="add-movie">
                 <h2>Add a Movie</h2>
-                <form>
+                <form onSubmit={(event) => this.saveMovie(event)}>
                     <input type="text" placeholder="Movie Title" />
                     <input type="text" placeholder="Poster URL" />
                     <textarea placeholder="Movie Description" />
@@ -25,6 +45,8 @@ class AddMovie extends Component {
                         <option value="Space-Opera">Space-Opera</option>
                         <option value="Superhero">Superhero</option>
                     </select>
+                    <button onClick={this.backToHome}>Cancel</button>
+                    <button type="submit">Save</button>
                 </form>
             </div>
          );
