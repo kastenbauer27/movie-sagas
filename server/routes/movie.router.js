@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
     // Depending on how you make your junction table, this insert COULD change.
     const insertMovieGenreQuery = `
-      INSERT INTO "movies_genres" ("movies_id", "genres_id")
+      INSERT INTO "movie_genre" ("movies_id", "genres_id")
       VALUES  ($1, $2);
       `
       // SECOND QUERY MAKES GENRE FOR THAT NEW MOVIE
@@ -36,6 +36,17 @@ router.post('/', (req, res) => {
   }).catch(err => {
     console.log(err);
     res.sendStatus(500)
+  })
+})
+
+router.get('/', (req, res) => {
+  const queryText = `SELECT * FROM movies ORDER BY id;`;
+  pool.query(queryText)
+  .then(result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('error from server getting movies', err);
   })
 })
 
