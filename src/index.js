@@ -16,6 +16,7 @@ import axios from "axios";
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchMovies);
     yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('SAVE_MOVIE', saveMovie);
 }
 
 function* fetchMovies() {
@@ -36,6 +37,16 @@ function* fetchMovieDetails(action) {
     } catch (err) {
       console.log("error in fetching movies from db", err);
     }  
+}
+
+function* saveMovie(action) {
+    console.log('in addMovie saga');
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put({ type: 'FETCH_MOVIES' });
+    } catch (err) {
+        console.log('error in adding movie to db', err);
+    }
 }
 
 // Create sagaMiddleware
