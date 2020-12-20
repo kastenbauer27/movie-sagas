@@ -54,9 +54,15 @@ router.get('/', (req, res) => {
 // gets one specific movie from database for details page
 router.get('/:id', (req, res) => {
   movieId = req.params.id;
-  const queryText = `SELECT * FROM movies WHERE id=$1;`;
+  const queryText = `
+                    SELECT movies.title, movies.poster, movies.description, genres.name FROM movies
+                    JOIN movie_genre ON movies.id = movie_genre.movie_id
+                    JOIN genres ON movie_genre.genre_id = genres.id
+                    WHERE movies.id = $1;
+                    `;
   pool.query(queryText, [movieId])
   .then(result => {
+    console.log(result.rows);
     res.send(result.rows);
   })
   .catch(err => {

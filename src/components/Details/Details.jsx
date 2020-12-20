@@ -17,6 +17,7 @@ class Details extends Component {
                             <div key={movie.id}>
                                 <h2>{movie.title}</h2>
                                 <img src={movie.poster} alt={movie.title} />
+                                <h3>Genres: {movie.name}</h3>
                                 <p>{movie.description}</p>
                                 <button onClick={this.backToHome}>Back To Movie List</button>
                             </div>
